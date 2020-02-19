@@ -63,9 +63,9 @@ const EditEntryModal = ({ util: { stars }, entry, setStars, updateEntry }) => {
   };
 
   const formIsComplete = () => {
-    if (!category || !medium || !hours || !minutes || !stars || !summary) {
+    if (!category || !medium || !stars || !summary) {
       M.toast({
-        html: 'Please enter category, medium, time spent, rating and summary.'
+        html: 'Please enter category, medium, rating and summary.'
       });
       return false;
     } else {
@@ -213,9 +213,10 @@ const EditEntryModal = ({ util: { stars }, entry, setStars, updateEntry }) => {
             <div className='row'>
               <div className='input-field col s12'>
                 <textarea
-                  className='materialize-textarea'
+                  className='browser-default'
                   id='description'
                   placeholder='Extended description...'
+                  style={{ height: '4rem' }}
                   value={description}
                   onChange={e => setDescription(e.target.value)}
                 ></textarea>

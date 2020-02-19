@@ -12,6 +12,7 @@ const Entries = ({
   entry: { loading, entries, checked, search },
   auth,
   util: { stats, error, page, resultsPerPage },
+  category: { categories },
   setPage,
   setSearch,
   getEntries
@@ -84,6 +85,34 @@ const Entries = ({
           entries.map(entry => <EntryItems entry={entry} key={entry._id} />)
         )}
       </ul>
+      {categories.length === 0 && (
+        <div class='col s12 m7'>
+          <div
+            class='card horizontal'
+            style={{ background: 'transparent', border: 'none' }}
+          >
+            <div class='card-stacked'>
+              <div class='card-content white-text'>
+                <p>Welcome, and thank you for registering with Learnalysis!</p>
+                <ol>
+                  <li>
+                    Click the <span className='red-text'>red</span> button to
+                    create your first category.
+                  </li>{' '}
+                  <li>
+                    Click the <span className='orange-text'>orange</span> button
+                    to create your first entry.
+                  </li>
+                </ol>
+                <small>
+                  *These directions will disappear when you make your first
+                  category
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </Fragment>
   );
 };
@@ -96,7 +125,8 @@ Entries.propTypes = {
 const mapStateToProps = state => ({
   auth: state.auth,
   entry: state.entry,
-  util: state.util
+  util: state.util,
+  category: state.category
 });
 
 export default connect(mapStateToProps, {

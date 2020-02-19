@@ -55,9 +55,9 @@ const AddEntryModal = ({
   };
 
   const formIsComplete = () => {
-    if (!category || !medium || !hours || !minutes || !summary) {
+    if (!category || !medium || !summary) {
       M.toast({
-        html: 'Please enter category, medium, time spent, and summary.'
+        html: 'Please enter category, medium, and summary.'
       });
       return false;
     } else if (!stars) {

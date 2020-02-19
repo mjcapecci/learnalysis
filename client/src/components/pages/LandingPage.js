@@ -33,8 +33,7 @@ const LandingPage = ({
     <Fragment>
       <div className='landing-page'>
         <div>
-          <h1>Welcome</h1>
-          <h3 className='center-align'>to Learnalysis:</h3>
+          <h3 className='hide-on-med-and-down'>Welcome to Learnalysis</h3>
         </div>
         <img src={stars} alt='Learnalysis Stars' width='220px' />
         <button

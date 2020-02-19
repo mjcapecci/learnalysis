@@ -102,7 +102,7 @@ const EntryItems = ({
           <span style={{ transform: 'translateY(9px)' }}>
             {' '}
             {entry.timeSpent.hours > 0 && entry.timeSpent.hours + 'h'}{' '}
-            {entry.timeSpent.minutes}m
+            {entry.timeSpent.minutes > 0 && entry.timeSpent.minutes + 'm'}
           </span>
           <span
             className='collapse-rating secondary-content black-text'

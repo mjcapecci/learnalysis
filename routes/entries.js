@@ -117,6 +117,9 @@ router.post(
       rating
     } = req.body;
 
+    if (!timeSpent.hours) timeSpent.hours = 0;
+    if (!timeSpent.minutes) timeSpent.minutes = 0;
+
     try {
       let foundCat = await Category.findOne({ name: category });
       if (!foundCat) {
@@ -182,6 +185,9 @@ router.put(
       researchOnly,
       rating
     } = req.body;
+
+    if (!timeSpent.hours) timeSpent.hours = 0;
+    if (!timeSpent.minutes) timeSpent.minutes = 0;
 
     try {
       let foundCat = await Category.findOne({ name: category });

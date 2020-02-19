@@ -33,11 +33,11 @@ const EntrySchema = new mongoose.Schema({
   timeSpent: {
     hours: {
       type: Number,
-      required: true
+      default: 0
     },
     minutes: {
       type: Number,
-      required: true
+      default: 0
     }
   },
   summary: {
