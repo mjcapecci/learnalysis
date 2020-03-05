@@ -1,6 +1,6 @@
 # Learnalysis
 
-Learnalysis is a web app for analyzing your learning. Login with Google, create categories, and make entries that correspond with your learning sessions within each of your categories.
+Learnalysis is a web app for analyzing your learning over time. Login with Google, create categories, and make entries that correspond with your learning sessions within each of your categories.
 
 ## Description
 
