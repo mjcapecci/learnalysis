@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { clearCurrentEntry } from '../../actions/entryActions';
 import { setStars } from '../../actions/utilActions';
 
-const AddEntryBtn = ({ clearCurrentEntry, setStars }) => {
+export const AddEntryBtn = ({ clearCurrentEntry, setStars }) => {
   return (
     <a
       href='#add-entry-modal'

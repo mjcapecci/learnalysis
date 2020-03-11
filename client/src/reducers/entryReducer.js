@@ -13,7 +13,7 @@ import {
   SET_SEARCH
 } from '../actions/types';
 
-const initialState = {
+export const initialState = {
   entries: [],
   current: null,
   loading: false,

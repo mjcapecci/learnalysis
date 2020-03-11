@@ -6,7 +6,7 @@ import {
   CATEGORY_LOADING
 } from '../actions/types';
 
-const initialState = {
+export const initialState = {
   categories: [],
   loading: false,
   error: null
