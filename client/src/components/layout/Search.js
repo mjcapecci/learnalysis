@@ -18,6 +18,7 @@ const Search = ({
     let searchValue = query.current.value;
     if (searchValue) {
       searchEntries(searchValue, page, resultsPerPage);
+      setSearch(null);
       setSearch(searchValue);
     }
     query.current.value = '';

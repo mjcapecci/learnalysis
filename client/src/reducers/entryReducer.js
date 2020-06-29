@@ -15,6 +15,7 @@ import {
 
 export const initialState = {
   entries: [],
+  filteredCount: null,
   current: null,
   loading: false,
   error: null,
@@ -77,9 +78,11 @@ export default (state = initialState, action) => {
         loading: false
       };
     case SEARCH_ENTRIES:
+      console.log(action.payload);
       return {
         ...state,
-        entries: action.payload,
+        entries: action.payload.result,
+        filteredCount: action.payload.count,
         loading: false
       };
     case SET_SEARCH:

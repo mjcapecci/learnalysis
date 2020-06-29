@@ -36,6 +36,7 @@ export const searchEntries = (query, page, results) => async dispatch => {
     const res = await axios.get(
       `/api/entries/search/${query}/${page}/${results}`
     );
+    console.log(res.data);
     dispatch({
       type: SEARCH_ENTRIES,
       payload: res.data

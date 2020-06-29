@@ -6,20 +6,22 @@ import { getStats } from '../../actions/utilActions';
 const EntryPagination = ({
   util: { stats, page, resultsPerPage },
   auth,
-  entry: { entries },
+  entry: { entries, filteredCount, search },
   getStats
 }) => {
-  useEffect(() => {
-    if (auth.user && entries.length > 0) {
-      getStats();
-    }
-    // eslint-disable-next-line
-  }, [auth.user, entries, resultsPerPage]);
-
   let rawCount;
   let totalCount;
   let pageNum = 0;
   let pageArr = [];
+
+  useEffect(() => {
+    if (!search) {
+      if (auth.user && entries.length > 0) {
+        getStats();
+      }
+    }
+    // eslint-disable-next-line
+  }, [auth.user, entries, resultsPerPage]);
 
   if (stats) {
     rawCount = Object.entries(stats.count[0]);
@@ -55,27 +57,53 @@ const EntryPagination = ({
     }
   };
 
-  return (
-    entries.length > 0 && (
-      <div>
-        <ul className='pagination'>
-          <li className='disabled'>
-            <a href='#!'>
-              <i className='material-icons'>chevron_left</i>
-            </a>
-          </li>
-          {pageArr.filter(checkForPagination).map(pageNum => (
-            <EntryPaginationItem page={pageNum} key={pageNum} />
-          ))}
-          <li className='disabled'>
-            <a href='#!'>
-              <i className='material-icons'>chevron_right</i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    )
-  );
+  if (!search) {
+    return (
+      entries.length > 0 && (
+        <div>
+          <ul className='pagination'>
+            <li className='disabled'>
+              <a href='#!'>
+                <i className='material-icons'>chevron_left</i>
+              </a>
+            </li>
+            {pageArr.filter(checkForPagination).map(pageNum => (
+              <EntryPaginationItem page={pageNum} key={pageNum} />
+            ))}
+            <li className='disabled'>
+              <a href='#!'>
+                <i className='material-icons'>chevron_right</i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      )
+    );
+  } else {
+    return (
+      entries.length > 0 && (
+        <div>
+          <ul className='pagination'>
+            <li className='disabled'>
+              <a href='#!'>
+                <i className='material-icons'>chevron_left</i>
+              </a>
+            </li>
+            {Array.from({
+              length: Math.ceil(filteredCount / resultsPerPage)
+            }).map((page, i) => (
+              <EntryPaginationItem page={i + 1} key={i} />
+            ))}
+            <li className='disabled'>
+              <a href='#!'>
+                <i className='material-icons'>chevron_right</i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      )
+    );
+  }
 };
 
 const mapStateToProps = state => ({

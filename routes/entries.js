@@ -74,8 +74,26 @@ router.get('/search/:query/:page/:results', auth, async (req, res) => {
       options
     );
 
+    // This provides a raw count for the front end to provide accurate pagination information
+    const query_count = await Entry.find(
+      {
+        $and: [
+          { user: req.user },
+          {
+            $or: [
+              { category: { $regex: r } },
+              { summary: { $regex: r } },
+              { description: { $regex: r } }
+            ]
+          }
+        ]
+      },
+      null
+    ).countDocuments();
+
     const result = db_query;
-    res.status(200).json(result);
+    const count = query_count;
+    res.status(200).json({ result, count });
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Internal Server Error');
@@ -90,14 +108,8 @@ router.post(
   [
     auth,
     [
-      check('summary', 'Must enter a summary')
-        .not()
-        .isEmpty(),
-      check('summary', 'Invalid input')
-        .isString()
-        .trim()
-        .stripLow()
-        .escape()
+      check('summary', 'Must enter a summary').not().isEmpty(),
+      check('summary', 'Invalid input').isString().trim().stripLow().escape()
     ]
   ],
   async (req, res) => {
@@ -160,14 +172,8 @@ router.put(
   [
     auth,
     [
-      check('summary', 'Must enter a summary')
-        .not()
-        .isEmpty(),
-      check('summary', 'Invalid input')
-        .isString()
-        .trim()
-        .stripLow()
-        .escape()
+      check('summary', 'Must enter a summary').not().isEmpty(),
+      check('summary', 'Invalid input').isString().trim().stripLow().escape()
     ]
   ],
   async (req, res) => {

@@ -4,16 +4,21 @@ import PropTypes from 'prop-types';
 import EntryItems from './EntryItems';
 
 import { connect } from 'react-redux';
-import { getEntries, setSearch } from '../../actions/entryActions';
+import {
+  getEntries,
+  setSearch,
+  searchEntries
+} from '../../actions/entryActions';
 import { getStats, setPage } from '../../actions/utilActions';
 import Preloader from '../layout/Preloader';
 
 const Entries = ({
-  entry: { loading, entries, checked, search },
+  entry: { loading, entries, search },
   auth,
-  util: { stats, error, page, resultsPerPage },
+  util: { page, resultsPerPage },
   category: { categories },
   setPage,
+  searchEntries,
   setSearch,
   getEntries
 }) => {
@@ -27,9 +32,12 @@ const Entries = ({
   }, [auth.user]);
 
   useEffect(() => {
-    if (auth.user && !loading) getEntries(page, resultsPerPage);
+    if (auth.user && !loading)
+      search
+        ? searchEntries(search, page, resultsPerPage)
+        : getEntries(page, resultsPerPage);
     // eslint-disable-next-line
-  }, [resultsPerPage, page, auth.user, getEntries]);
+  }, [resultsPerPage, page]);
 
   if (loading) {
     return <Preloader />;
@@ -133,5 +141,6 @@ export default connect(mapStateToProps, {
   getEntries,
   getStats,
   setPage,
-  setSearch
+  setSearch,
+  searchEntries
 })(Entries);
